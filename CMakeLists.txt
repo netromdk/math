@@ -26,6 +26,18 @@ IF( BUILD_TESTS MATCHES ON )
   ADD_SUBDIRECTORY( test )
 ENDIF( )
 
+# Add a target to generate API documentation with Doxygen.
+FIND_PACKAGE( Doxygen )
+IF( DOXYGEN_FOUND )
+  CONFIGURE_FILE( ${PROJECT_SOURCE_DIR}/doc/Doxyfile.in 
+    ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY )
+  ADD_CUSTOM_TARGET( doc ${DOXYGEN_EXECUTABLE} 
+    ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+  COMMENT "Generating API documentation with Doxygen" 
+  VERBATIM )
+ENDIF( )
+
 MESSAGE( STATUS "--------------------------------------------------" )
 MESSAGE( STATUS "VERSION        = ${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}.${${PROJECT_NAME}_PATCH_LEVEL}" )
 MESSAGE( STATUS "BUILD_TESTS    = ${BUILD_TESTS}" )

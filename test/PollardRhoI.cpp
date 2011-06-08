@@ -3,7 +3,7 @@
 using namespace std;
 
 #include "PollardRho.h"
-using namespace Math;
+using namespace Math::Fac;
 
 #include "TestCommon.h"
 
