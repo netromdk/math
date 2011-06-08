@@ -1,5 +1,6 @@
 #include "Mod.h"
 #include "GCD.h"
+#include "Random.h"
 #include "PollardRho.h"
 
 namespace Math {
@@ -10,7 +11,12 @@ namespace Math {
   }
   
   int pollardRhoI(int n) {
-    int a = 1, s = 2, g, u, v;
+    int a, s, g, u, v;
+
+    Random rnd;
+    a = rnd.getRange(1, n - 3);
+    s = rnd.getRange(0, n - 1);    
+    
     u = v = s;
     
     do {
