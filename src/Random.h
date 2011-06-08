@@ -1,3 +1,6 @@
+#ifndef MATH_RANDOM_H
+#define MATH_RANDOM_H
+
 #ifdef WIN32
 #include <windows.h>
 #include <Wincrypt.h>
@@ -5,8 +8,7 @@
 #include <fstream>
 #endif
 
-#ifndef MATH_RANDOM_H
-#define MATH_RANDOM_H
+#include "PTypes.h"
 
 namespace Math {
   class Random {
@@ -14,9 +16,11 @@ namespace Math {
     Random();
     ~Random();
 
-    unsigned char getByte();
-    unsigned long getInt32();
-    unsigned long long getInt64();  
+    uchar getByte();
+    ulong getInt32();
+    ull getInt64();
+
+    ulong getRange(ulong start, ulong end);
 
   private:
 #ifdef WIN32

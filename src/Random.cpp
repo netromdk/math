@@ -22,7 +22,15 @@ namespace Math {
 #endif
   }
 
-  unsigned char Random::getByte() {
+  Random::~Random() {
+#ifdef WIN32
+    CryptReleaseContext(hProv, 0);
+#else
+    in.close();
+#endif
+  }  
+
+  uchar Random::getByte() {
 #ifdef WIN32
     BYTE data[1];
     CryptGenRandom(hProv, 1, data);
@@ -34,10 +42,10 @@ namespace Math {
 
   union char_int32 {
     char chars[4];
-    unsigned long n;
+    ulong n;
   };
 
-  unsigned long Random::getInt32() {
+  ulong Random::getInt32() {
     char_int32 rand_int;  
 #ifdef WIN32
     CryptGenRandom(hProv, 4, (BYTE*) rand_int.chars);
@@ -51,10 +59,10 @@ namespace Math {
 
   union char_int64 {
     char chars[8];
-    unsigned long long n;
+    ull n;
   };
                                  
-  unsigned long long Random::getInt64() {
+  ull Random::getInt64() {
     char_int64 rand_int; 
 #ifdef WIN32
     CryptGenRandom(hProv, 8, (BYTE*) rand_int.chars);
@@ -66,11 +74,23 @@ namespace Math {
     return rand_int.n;
   }
 
-  Random::~Random() {
-#ifdef WIN32
-    CryptReleaseContext(hProv, 0);
-#else
-    in.close();
-#endif
+  ulong Random::getRange(ulong start, ulong end) {
+    // Ignore if invalid input.
+    if (start > end) {
+      return 0;
+    }
+
+    ulong res = getInt32();
+    while (res < start || res > end) {
+      if (res < start) {
+        res += (end - start) / 4;
+      }
+      
+      if (res > end) {
+        res %= (end + 1);
+      }
+    }    
+      
+    return res;
   }
 }
