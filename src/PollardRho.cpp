@@ -1,6 +1,7 @@
 #include "Mod.h"
 #include "GCD.h"
 #include "Random.h"
+#include "Common.h"
 #include "PollardRho.h"
 
 namespace Math {
@@ -12,7 +13,10 @@ namespace Math {
     }
   
     int pollardRhoI(int n) {
-      static Random rnd;
+      // Return n if n is a probable-prime.
+      if (isPropPrime(n)) return n;
+      
+      Random rnd;
       int a = rnd.getRange(1, n - 3),
         s = rnd.getRange(0, n - 1);    
 

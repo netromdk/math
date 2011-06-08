@@ -25,6 +25,6 @@ int main(int argc, char **argv) {
   }
 
   int g = pollardRhoI(num);
-  cout << "A prime factor of " << num << " is " << g << endl;
+  cout << "A factor of " << num << " is " << g << endl;
   return 0;
 }
