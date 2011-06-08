@@ -7,6 +7,8 @@ SET( SOURCES
      Mod.cpp
      GCD.h
      GCD.cpp
+     Random.h
+     Random.cpp
 
      # Factorization
      PollardRho.h
