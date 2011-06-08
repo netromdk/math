@@ -3,7 +3,7 @@
 #include "Common.h"
 
 namespace Math {
-  bool isPropPrime(mpz_t n) {
+  bool isPropPrime(const mpz_t n) {
     return mpz_probab_prime_p(n, 10) > 0;
   }
   

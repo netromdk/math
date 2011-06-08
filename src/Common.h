@@ -5,7 +5,7 @@
 #include <string>
 
 namespace Math {
-  bool isPropPrime(mpz_t n);  
+  bool isPropPrime(const mpz_t n);  
   bool isPropPrime(int n);
   void dump(mpz_t n, std::string msg = "", bool newline = true);
 }

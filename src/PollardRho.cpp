@@ -7,13 +7,61 @@
 namespace Math {
   namespace Fac {
     namespace {
-      int fI(int x, int a, int n) {
+      void func(mpz_t r, const mpz_t x, const mpz_t a, const mpz_t n) {
+        mpz_mul(r, x, x);
+        mpz_add(r, r, a);
+        mpz_mod(r, r, n);
+      }
+      
+      int funcI(int x, int a, int n) {
         return mod(x * x + a, n);
       }
     }
+
+    void pollardRho(const mpz_t n, mpz_t f) {
+      // Return n as the factor if it's a probable-prime.      
+      if (isPropPrime(n)) {
+        mpz_set(f, n);
+        return;
+      }
+
+      mpz_t a, s, g, u, v, one, zero, tmp;
+      mpz_inits(a, s, g, u, v, one, zero, tmp, NULL);
+      mpz_set_ui(zero, 0);      
+      mpz_set_ui(one, 1);
+      mpz_sub_ui(tmp, n, 3);
+      randRange(a, one, tmp); // a in [1, n - 3]
+
+      mpz_sub_ui(tmp, n, 1);      
+      randRange(s, zero, tmp); // s in [0, n - 1]
+
+      // u = v = s
+      mpz_set(u, s);
+      mpz_set(v, s);
+
+      do {
+        func(u, u, a, n);
+        func(v, v, a, n);
+        func(v, v, a, n);
+
+        // g = gcd((u - v) mod n, n)
+        mpz_sub(tmp, u, v);
+        mpz_mod(tmp, tmp, n);
+        mpz_gcd(g, tmp, n);
+      } while (mpz_cmp(g, one) == 0);
+
+      // Failed: g == n
+      if (mpz_cmp(g, n) == 0) {
+        mpz_clears(a, s, g, u, v, one, zero, tmp, NULL);
+        pollardRho(n, f);
+      }
+
+      // Found factor.
+      mpz_set(f, g);
+      mpz_clears(a, s, g, u, v, one, zero, tmp, NULL);
+    }
   
     int pollardRhoI(int n) {
-      // Return n if n is a probable-prime.
       if (isPropPrime(n)) return n;
       
       Random rnd;
@@ -24,8 +72,8 @@ namespace Math {
       u = v = s;
     
       do {
-        u = fI(u, a, n);
-        v = fI(fI(v, a, n), a, n);
+        u = funcI(u, a, n);
+        v = funcI(funcI(v, a, n), a, n);
         g = gcd(mod(u - v, n), n);
       } while (g == 1);
 
