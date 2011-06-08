@@ -1,0 +1,11 @@
+### Libs ###
+
+SET( CORELIBS math )
+LINK_DIRECTORIES( ${PROJECT_BINARY_DIR} )
+INCLUDE_DIRECTORIES( ${PROJECT_SOURCE_DIR}/src )
+
+### Build and link ####
+
+ADD_EXECUTABLE( PollardRhoI PollardRhoI.cpp ) 
+TARGET_LINK_LIBRARIES( PollardRhoI ${CORELIBS} )
+
