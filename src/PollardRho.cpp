@@ -11,12 +11,11 @@ namespace Math {
   }
   
   int pollardRhoI(int n) {
-    int a, s, g, u, v;
-
     Random rnd;
-    a = rnd.getRange(1, n - 3);
-    s = rnd.getRange(0, n - 1);    
-    
+    int a = rnd.getRange(1, n - 3),
+      s = rnd.getRange(0, n - 1);    
+
+    int g, u, v;    
     u = v = s;
     
     do {
