@@ -7,6 +7,24 @@
 namespace Math {
   namespace Fac {
     namespace {
+      void pollardRhoFactor0(mpz_t n, vector<mpz_t*> &facs) {
+        if (isPropPrime(n)) {
+          mpz_t *tmp = new mpz_t[1];
+          mpz_init(*tmp);
+          mpz_set(*tmp, n);
+          facs.push_back(tmp);
+          return;
+        }
+
+        mpz_t *g = new mpz_t[1];
+        mpz_init(*g);
+        pollardRho(n, *g);
+        facs.push_back(g);
+
+        mpz_divexact(n, n, *g);
+        pollardRhoFactor0(n, facs);
+      }
+      
       void func(mpz_t r, const mpz_t x, const mpz_t a, const mpz_t n) {
         mpz_mul(r, x, x);
         mpz_add(r, r, a);
@@ -16,6 +34,14 @@ namespace Math {
       int funcI(int x, int a, int n) {
         return mod(x * x + a, n);
       }
+    }
+
+    void pollardRhoFactor(const mpz_t n, vector<mpz_t*> &facs) {
+      mpz_t tmp;
+      mpz_init(tmp);
+      mpz_set(tmp, n);
+      pollardRhoFactor0(tmp, facs);
+      mpz_clear(tmp);
     }
 
     void pollardRho(const mpz_t n, mpz_t f) {

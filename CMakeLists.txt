@@ -27,7 +27,7 @@ OPTION( BUILD_TESTS "Set to ON to build test programs" OFF )
 FIND_PACKAGE( GMP REQUIRED )
 INCLUDE_DIRECTORIES( ${GMP_INCLUDE_DIR} )
 
-ADD_DEFINITIONS( "-Wall" )
+ADD_DEFINITIONS( "-Wall -Wno-unused-function" )
 ADD_SUBDIRECTORY( src )
 
 # Build test programs.

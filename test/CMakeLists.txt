@@ -12,3 +12,6 @@ TARGET_LINK_LIBRARIES( PollardRhoI ${CORELIBS} )
 ADD_EXECUTABLE( PollardRho PollardRho.cpp ) 
 TARGET_LINK_LIBRARIES( PollardRho ${CORELIBS} )
 
+ADD_EXECUTABLE( PollardRhoFactor PollardRhoFactor.cpp ) 
+TARGET_LINK_LIBRARIES( PollardRhoFactor ${CORELIBS} )
+
