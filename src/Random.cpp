@@ -4,6 +4,65 @@ using namespace std;
 #include "Random.h"
 
 namespace Math {
+  void randRange(mpz_t num, const mpz_t max) {
+    gmp_randstate_t state;
+    gmp_randinit_mt(state);
+    gmp_randseed_ui(state, Random().getInt64());
+    mpz_urandomm(num, state, max);
+    gmp_randclear(state);    
+  }
+
+  void randRange(mpz_t num, uint max) {
+    mpz_t gmax;
+    mpz_init(gmax);
+    mpz_set_ui(gmax, max);
+    randRange(num, gmax);
+    mpz_clear(gmax);
+  }
+
+  void randRange(mpz_t num, const mpz_t min, const mpz_t max) {
+    gmp_randstate_t state;
+    gmp_randinit_mt(state);
+    gmp_randseed_ui(state, Random().getInt64());
+
+    // Add one to max since it should first be from 0 to max (and not
+    // max-1).
+    mpz_t tmax;
+    mpz_init(tmax);
+    mpz_add_ui(tmax, max, 1); // tmax = max + 1
+    
+    mpz_urandomm(num, state, tmax);
+
+    // While num < min or num > max get it into the interval.
+    mpz_t tmp;
+    mpz_init(tmp);
+    while (mpz_cmp(num, min) < 0 || mpz_cmp(num, tmax) > 0) {
+      if (mpz_cmp(num, min) < 0) {
+        // Add (max - min) to num.
+        mpz_sub(tmp, max, min);
+        mpz_add(num, num, tmp);
+      }
+
+      if (mpz_cmp(num, tmax) > 0) {
+        // num mod (tmax + 1).
+        mpz_add_ui(tmp, tmax, 1);
+        mpz_mod(num, num, tmp);
+      }
+    }
+
+    mpz_clears(tmax, tmp, NULL);
+    gmp_randclear(state);
+  }
+  
+  void randRange(mpz_t num, uint min, uint max) {
+    mpz_t gmin, gmax;
+    mpz_inits(gmin, gmax, NULL);
+    mpz_set_ui(gmin, min);    
+    mpz_set_ui(gmax, max);
+    randRange(num, gmin, gmax);
+    mpz_clears(gmin, gmax, NULL);    
+  }
+  
   Random::Random() {
 #ifdef WIN32
     if (!CryptAcquireContext(&hProv, NULL, NULL, PROV_RSA_FULL, 0)) {

@@ -8,9 +8,23 @@
 #include <fstream>
 #endif
 
+#include <gmp.h>
+
 #include "PTypes.h"
 
 namespace Math {
+  /**
+   * Generates a random number between 0 and max-1 inclusive.
+   */
+  void randRange(mpz_t num, const mpz_t max);
+  void randRange(mpz_t num, uint max);
+
+  /**
+   * Generates a random number between min and max, both inclusive.
+   */
+  void randRange(mpz_t num, const mpz_t min, const mpz_t max);
+  void randRange(mpz_t num, uint min, uint max);      
+  
   class Random {
   public:
     Random();
