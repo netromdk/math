@@ -86,6 +86,18 @@ namespace Math {
       mpz_set(f, g);
       mpz_clears(a, s, g, u, v, one, zero, tmp, NULL);
     }
+
+    void pollardRhoFactorI(int n, vector<int> &facs) {
+      if (isPropPrime(n)) {
+        facs.push_back(n);
+        return;
+      }
+
+      int g = pollardRhoI(n);
+      facs.push_back(g);
+
+      pollardRhoFactorI(n / g, facs);
+    }    
   
     int pollardRhoI(int n) {
       if (isPropPrime(n)) return n;

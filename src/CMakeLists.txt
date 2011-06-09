@@ -14,6 +14,8 @@ SET( SOURCES
      EulerTotient.h
      EulerTotient.cpp
      PrimeTable.h
+     Smooth.h
+     Smooth.cpp
 
      # Factorization
      PollardRho.h

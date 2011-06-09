@@ -23,7 +23,12 @@ namespace Math {
      * Finds a nontrivial factor of composite number n of arbitrary
      * size and writes the result to f.
      */
-    void pollardRho(const mpz_t n, mpz_t f);    
+    void pollardRho(const mpz_t n, mpz_t f);
+
+    /**
+     * Finds the prime factorization of n.
+     */
+    void pollardRhoFactorI(int n, vector<int> &facs);            
 
     /**
      * Finds a nontrivial factor of composite number n.

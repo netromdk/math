@@ -21,3 +21,6 @@ TARGET_LINK_LIBRARIES( EratosthenesRangeI ${CORELIBS} )
 ADD_EXECUTABLE( EratosthenesRange EratosthenesRange.cpp ) 
 TARGET_LINK_LIBRARIES( EratosthenesRange ${CORELIBS} )
 
+ADD_EXECUTABLE( SmoothnessI SmoothnessI.cpp ) 
+TARGET_LINK_LIBRARIES( SmoothnessI ${CORELIBS} )
+
