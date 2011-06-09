@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
     return -1;
   }  
 
-  vector<int> primes = eratosthenesRange(min, max);
+  vector<int> primes = eratosthenesRangeI(min, max);
 
   cout << "List of primes (" << primes.size()
        << ") in [" << min << ", " << max << "]:" << endl;

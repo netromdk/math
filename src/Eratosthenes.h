@@ -10,7 +10,7 @@ namespace Math {
      * Finds the primes in the range [2, max]. It is assumed that max
      * is even and >= 4.
      */
-    vector<int> eratosthenesRange(int max);
+    vector<int> eratosthenesRangeI(int max);
     
     /**
      * Finds the primes in the range [min, max]. It is assumed that
@@ -19,7 +19,7 @@ namespace Math {
      *
      * Segmented version if !(min == 2 && max >= 4).
      */    
-    vector<int> eratosthenesRange(int min, int max);
+    vector<int> eratosthenesRangeI(int min, int max);
   }
 }
 

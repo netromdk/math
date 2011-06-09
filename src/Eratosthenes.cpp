@@ -7,7 +7,7 @@
 
 namespace Math {
   namespace Sieve {
-    vector<int> eratosthenesRange(int max) {
+    vector<int> eratosthenesRangeI(int max) {
       vector<int> buf;
       for (int i = 2; i < max; i++) {
         buf.push_back(i);
@@ -39,10 +39,10 @@ namespace Math {
       return res;      
     }
     
-    vector<int> eratosthenesRange(int min, int max) {
+    vector<int> eratosthenesRangeI(int min, int max) {
       // Don't use the segmented version in this case.
       if (min == 2 && max >= 4) {
-        return eratosthenesRange(max);
+        return eratosthenesRangeI(max);
       }
       
       int P = floor(sqrt(max));

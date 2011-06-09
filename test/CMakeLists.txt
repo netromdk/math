@@ -15,6 +15,6 @@ TARGET_LINK_LIBRARIES( PollardRho ${CORELIBS} )
 ADD_EXECUTABLE( PollardRhoFactor PollardRhoFactor.cpp ) 
 TARGET_LINK_LIBRARIES( PollardRhoFactor ${CORELIBS} )
 
-ADD_EXECUTABLE( EratosthenesRange EratosthenesRange.cpp ) 
-TARGET_LINK_LIBRARIES( EratosthenesRange ${CORELIBS} )
+ADD_EXECUTABLE( EratosthenesRangeI EratosthenesRangeI.cpp ) 
+TARGET_LINK_LIBRARIES( EratosthenesRangeI ${CORELIBS} )
 
