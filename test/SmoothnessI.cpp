@@ -2,7 +2,7 @@
 using namespace std;
 
 #include "Smooth.h"
-using namespace Math;
+using namespace Math::Fac;
 
 #include "TestCommon.h"
 

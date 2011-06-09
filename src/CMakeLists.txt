@@ -14,12 +14,12 @@ SET( SOURCES
      EulerTotient.h
      EulerTotient.cpp
      PrimeTable.h
-     Smooth.h
-     Smooth.cpp
 
      # Factorization
      PollardRho.h
      PollardRho.cpp
+     Smooth.h
+     Smooth.cpp
 
      # Sieving
      Eratosthenes.h
