@@ -5,7 +5,7 @@
 
 namespace Math {
   namespace Fac {
-    bool isSmooth(int n, int B, int *C) {
+    bool isSmoothI(int n, int B, int *C) {
       vector<int> facs;
       pollardRhoFactorI(n, facs);
 

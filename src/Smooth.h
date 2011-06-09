@@ -7,7 +7,7 @@ namespace Math {
      * Checks if n is B-smooth. Otherwise, if C is specified then that
      * will be the actual smoothness bound.
      */
-    bool isSmooth(int n, int B, int *C = NULL);
+    bool isSmoothI(int n, int B, int *C = NULL);
   }
 }
 

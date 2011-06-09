@@ -30,7 +30,7 @@ int main(int argc, char **argv) {
   }
 
   int C;
-  if (isSmooth(num, B, &C)) {
+  if (isSmoothI(num, B, &C)) {
     cout << num << " is " << B << "-smooth." << endl;
   }
   else {
