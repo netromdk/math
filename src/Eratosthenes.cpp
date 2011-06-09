@@ -1,3 +1,7 @@
+#include "Common.h"
+#include <iostream>
+using namespace std;
+
 #include <cmath>
 
 #include "Mod.h"
@@ -113,6 +117,13 @@ namespace Math {
       // Process blocks and strike out the multiples which are not
       // primes.
       vector<mpz_t*> b;
+      for (mpz_set_ui(tmp, 0); mpz_cmp(tmp, B) < 0; mpz_add_ui(tmp, tmp, 1)) {
+        mpz_t *tmp_ = new mpz_t[1];
+        mpz_init(*tmp_);
+        mpz_set_ui(*tmp_, 1);
+        b.push_back(tmp_);
+      }
+      
       mpz_t T, tmp3;
       mpz_inits(T, tmp3, NULL);
       mpz_set(T, min);
@@ -121,7 +132,7 @@ namespace Math {
           mpz_t *tmp_ = new mpz_t[1];
           mpz_init(*tmp_);
           mpz_set_ui(*tmp_, 1);
-          b.push_back(tmp_);
+          b[mpz_get_ui(tmp)] = tmp_;
         }
 
         for (mpz_set_ui(tmp, 0); mpz_cmp(tmp, tot) < 0; mpz_add_ui(tmp, tmp, 1)) {
@@ -236,7 +247,6 @@ namespace Math {
       vector<int> b(B, 1), res;
       int T = min;
       while (T < max) {
-        // This loop is essentially not required the first time.
         for (int j = 0; j < B; j++) {
           b[j] = 1;
         }
@@ -254,6 +264,7 @@ namespace Math {
           if (b[j] == 1) {
             // Found next prime...
             int p = T + (2 * j) + 1;
+            
             if (p <= max) {
               res.push_back(p);
             }

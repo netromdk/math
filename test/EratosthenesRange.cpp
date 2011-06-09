@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
     dump(**it, "", false);
 
     if (it + 1 != primes.end()) {
-      cout << ", ";
+      cout << " ";
     }
     
     mpz_clear(**it);
