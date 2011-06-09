@@ -11,10 +11,17 @@ SET( SOURCES
      GCD.cpp
      Random.h
      Random.cpp
+     EulerTotient.h
+     EulerTotient.cpp
+     PrimeTable.h
 
      # Factorization
      PollardRho.h
      PollardRho.cpp
+
+     # Sieving
+     Eratosthenes.h
+     Eratosthenes.cpp
      )
 
 SET( CORELIBS
