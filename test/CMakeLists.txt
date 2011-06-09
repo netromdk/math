@@ -27,3 +27,9 @@ TARGET_LINK_LIBRARIES( SmoothnessI ${CORELIBS} )
 ADD_EXECUTABLE( Smoothness Smoothness.cpp ) 
 TARGET_LINK_LIBRARIES( Smoothness ${CORELIBS} )
 
+ADD_EXECUTABLE( SquareFreeI SquareFreeI.cpp ) 
+TARGET_LINK_LIBRARIES( SquareFreeI ${CORELIBS} )
+
+ADD_EXECUTABLE( SquareFree SquareFree.cpp ) 
+TARGET_LINK_LIBRARIES( SquareFree ${CORELIBS} )
+

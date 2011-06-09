@@ -1,7 +1,7 @@
 SET( NAME math )
 
 SET( SOURCES
-     # Common
+     ### Common
      PTypes.h
      Common.h 
      Common.cpp
@@ -14,14 +14,16 @@ SET( SOURCES
      EulerTotient.h
      EulerTotient.cpp
      PrimeTable.h
+     SquareFree.h
+     SquareFree.cpp
 
-     # Factorization
+     ### Factorization
      PollardRho.h
      PollardRho.cpp
      Smooth.h
      Smooth.cpp
 
-     # Sieving
+     ### Sieving
      Eratosthenes.h
      Eratosthenes.cpp
      )
