@@ -1,11 +1,18 @@
 #ifndef MATH_ERATOSTHENES_H
 #define MATH_ERATOSTHENES_H
 
+#include <gmp.h>
 #include <vector>
 using namespace std;
 
 namespace Math {
   namespace Sieve {
+    /**
+     * Finds the primes in the range [2, max]. It is assumed that max
+     * is even and >= 4.
+     */
+    vector<mpz_t*> eratosthenesRange(const mpz_t max);
+    
     /**
      * Finds the primes in the range [2, max]. It is assumed that max
      * is even and >= 4.

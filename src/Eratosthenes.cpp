@@ -1,3 +1,6 @@
+#include <iostream> //rem
+using namespace std;//rem
+
 #include <cmath>
 
 #include "Mod.h"
@@ -7,6 +10,63 @@
 
 namespace Math {
   namespace Sieve {
+    vector<mpz_t*> eratosthenesRange(const mpz_t max) {
+      vector<mpz_t*> buf;
+      mpz_t i, j, p, tmp;
+      mpz_inits(i, j, p, tmp, NULL);
+      
+      // Loop 2 -> max-1
+      for (mpz_set_ui(i, 2); mpz_cmp(i, max) < 0; mpz_add_ui(i, i, 1)) {
+        mpz_t *tmp0 = new mpz_t[1];
+        mpz_init(*tmp0);
+        mpz_set(*tmp0, i);
+        buf.push_back(tmp0);
+      }
+
+      // Loop p=2 -> p*p <= max
+      for (mpz_set_ui(p, 2), mpz_set_ui(j, 0);
+           mpz_mul(tmp, p, p), mpz_cmp(tmp, max) <= 0;) {
+        // Loop i=j+p -> i < buf.size()
+        for (mpz_add(tmp, j, p); mpz_cmp_ui(tmp, buf.size()) < 0;
+             mpz_add(tmp, tmp, p)) {
+          // buf[i] = 0
+          mpz_set_ui(*buf[mpz_get_ui(tmp)], 0);
+        }
+
+        // Loop i=j+1 -> i < buf.size()        
+        for (mpz_add_ui(tmp, j, 1); mpz_cmp_ui(tmp, buf.size()) < 0;
+             mpz_add_ui(tmp, tmp, 1)) {
+          // If buf[i] > 0
+          if (mpz_cmp_ui(*buf[mpz_get_ui(tmp)], 0) > 0) {
+            // p = buf[i]
+            mpz_set(p, *buf[mpz_get_ui(tmp)]);
+            mpz_set(j, tmp);
+            break;
+          }
+        }
+      }
+
+      vector<mpz_t*> res;
+      
+      // Put all the found prime numbers into the vector.
+      for (size_t i = 0; i < buf.size(); i++) {
+        // If buf[i] > 0
+        if (mpz_cmp_ui(*buf[i], 0) > 0) {
+          res.push_back(buf[i]);
+        }
+
+        // Clean up the ones we don't need.
+        else {
+          mpz_clear(*buf[i]);
+          delete[] buf[i];
+        }
+      }
+      
+      buf.clear();
+      mpz_clears(i, j, p, tmp, NULL);
+      return res;
+    }
+    
     vector<int> eratosthenesRangeI(int max) {
       vector<int> buf;
       for (int i = 2; i < max; i++) {
