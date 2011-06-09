@@ -1,6 +1,3 @@
-#include <iostream> //rem
-using namespace std;//rem
-
 #include <cmath>
 
 #include "Mod.h"
