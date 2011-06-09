@@ -17,6 +17,9 @@ namespace Math {
         if (mpz_cmp(*fac, max) > 0) {
           mpz_set(max, *fac);
         }
+
+        mpz_clear(*fac);
+        delete[] fac;
       }
 
       if (mpz_cmp(max, B) <= 0) {
