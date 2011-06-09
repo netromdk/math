@@ -11,7 +11,16 @@ namespace Math {
      * Finds the primes in the range [2, max]. It is assumed that max
      * is even and >= 4.
      */
-    vector<mpz_t*> eratosthenesRange(const mpz_t max);
+    void eratosthenesRange(const mpz_t max, vector<mpz_t*> &primes);
+
+    /**
+     * Segmented sieve finding primes in the range [min, max]. It is
+     * assumed that min, max are even, with max > min, min > P =
+     * floor(sqrt(max)), B | (max - min). Requires a table of pi(P)
+     * primes, p_k <= P.
+     */
+    void eratosthenesRange(const mpz_t min, const mpz_t max,
+                           vector<mpz_t*> &primes);    
     
     /**
      * Finds the primes in the range [2, max]. It is assumed that max

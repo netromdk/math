@@ -50,8 +50,14 @@ int main(int argc, char **argv) {
     return -1;    
   }
 
-  vector<mpz_t*> primes = eratosthenesRange(max); //min, max);
-  dump(max, "List of primes <=");
+  vector<mpz_t*> primes;
+  eratosthenesRange(min, max, primes);
+  
+  cout << "List of primes (" << primes.size() << ") in [";
+  dump(min, "", false);
+  dump(max, ",", false);
+  cout << "]:" << endl;
+  
   vector<mpz_t*>::iterator it; 
   for (it = primes.begin(); it != primes.end(); it++) {
     dump(**it, "", false);
@@ -65,21 +71,5 @@ int main(int argc, char **argv) {
   }
 
   mpz_clears(min, max, tmp, NULL);
-  
-
-  /*
-
-
-
-  vector<int> primes = eratosthenesRangeI(min, max);
-
-  cout << "List of primes (" << primes.size()
-       << ") in [" << min << ", " << max << "]:" << endl;
-  for (vector<int>::iterator it = primes.begin();
-       it != primes.end(); it++) {
-    cout << *it << " ";
-  }
-  cout << endl;
-  */
   return 0;
 }

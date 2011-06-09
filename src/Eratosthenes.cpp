@@ -10,7 +10,7 @@ using namespace std;//rem
 
 namespace Math {
   namespace Sieve {
-    vector<mpz_t*> eratosthenesRange(const mpz_t max) {
+    void eratosthenesRange(const mpz_t max, vector<mpz_t*> &primes) {
       vector<mpz_t*> buf;
       mpz_t i, j, p, tmp;
       mpz_inits(i, j, p, tmp, NULL);
@@ -46,13 +46,11 @@ namespace Math {
         }
       }
 
-      vector<mpz_t*> res;
-      
       // Put all the found prime numbers into the vector.
       for (size_t i = 0; i < buf.size(); i++) {
         // If buf[i] > 0
         if (mpz_cmp_ui(*buf[i], 0) > 0) {
-          res.push_back(buf[i]);
+          primes.push_back(buf[i]);
         }
 
         // Clean up the ones we don't need.
@@ -64,7 +62,121 @@ namespace Math {
       
       buf.clear();
       mpz_clears(i, j, p, tmp, NULL);
-      return res;
+    }
+
+    void eratosthenesRange(const mpz_t min, const mpz_t max,
+                           vector<mpz_t*> &primes) {
+      if (mpz_cmp_ui(min, 2) == 0 && mpz_cmp_ui(max, 4) >= 0) {
+        eratosthenesRange(max, primes);
+        return;
+      }
+
+      mpz_t P, tot;
+      mpz_inits(P, tot, NULL);
+      mpz_sqrt(P, max);
+      totient(P, tot);
+
+      // Calculate offsets.
+      vector<mpz_t*> q;
+      mpz_t i, tmp;
+      mpz_inits(i, tmp, NULL);
+      for (mpz_set_ui(i, 0); mpz_cmp(i, tot) < 0; mpz_add_ui(i, i, 1)) {
+         // Skip 2 because it is even.
+        int pk = PRIME_TABLE[mpz_get_ui(i) + 1];
+
+        // tmp = min + pk + 1
+        mpz_add_ui(tmp, min, pk);
+        mpz_add_ui(tmp, tmp, 1);
+
+        // tmp = ceil(-1 * (tmp / 2))
+        mpz_cdiv_q_ui(tmp, tmp, 2);
+        mpz_mul_si(tmp, tmp, -1);
+        mpz_mod_ui(tmp, tmp, pk);
+
+        mpz_t *tmp_ = new mpz_t[1];
+        mpz_init(*tmp_);
+        mpz_set(*tmp_, tmp);
+        q.push_back(tmp_);
+      }
+
+      // Find B such that B | (max - min).
+      mpz_sub(tmp, max, min);
+      mpz_t B, tmp2;
+      mpz_inits(B, tmp2, NULL);
+      mpz_sqrt(B, tmp);
+      mpz_sub_ui(B, B, 1);
+      while (true) {
+        mpz_add_ui(B, B, 1);
+        mpz_mod(tmp2, tmp, B);
+        if (mpz_cmp_ui(tmp2, 0) == 0) {
+          break;
+        }
+      }
+
+      // Process blocks and strike out the multiples which are not
+      // primes.
+      vector<mpz_t*> b;
+      mpz_t T, tmp3;
+      mpz_inits(T, tmp3, NULL);
+      mpz_set(T, min);
+      while (mpz_cmp(T, max) < 0) {
+        for (mpz_set_ui(tmp, 0); mpz_cmp(tmp, B) < 0; mpz_add_ui(tmp, tmp, 1)) {
+          mpz_t *tmp_ = new mpz_t[1];
+          mpz_init(*tmp_);
+          mpz_set_ui(*tmp_, 1);
+          b.push_back(tmp_);
+        }
+
+        for (mpz_set_ui(tmp, 0); mpz_cmp(tmp, tot) < 0; mpz_add_ui(tmp, tmp, 1)) {
+          int pk = PRIME_TABLE[mpz_get_ui(tmp) + 1];
+          // j = q[k]
+          mpz_set(tmp2, *q[mpz_get_ui(tmp)]);
+          for (; mpz_cmp(tmp2, B) < 0; mpz_add_ui(tmp2, tmp2, pk)) {
+            // b[j] = 0
+            mpz_set_ui(*b[mpz_get_ui(tmp2)], 0);
+          }
+
+          // q[k] = mod(q[k] - B, pk);
+          mpz_sub(tmp3, *q[mpz_get_ui(tmp)], B);
+          mpz_mod_ui(*q[mpz_get_ui(tmp)], tmp3, pk);
+        }
+
+        for (mpz_set_ui(tmp, 0); mpz_cmp(tmp, B) < 0; mpz_add_ui(tmp, tmp, 1)) {
+          // b[j] == 1
+          if (mpz_cmp_ui(*b[mpz_get_ui(tmp)], 1) == 0) {
+            // Found next prime...
+
+            // p = T + 1 + (2 * j)
+            mpz_add_ui(tmp2, T, 1);
+            mpz_mul_ui(tmp3, tmp, 2);
+            mpz_add(tmp2, tmp2, tmp3);
+
+            if (mpz_cmp(tmp2, max) <= 0) {
+              mpz_t *tmp_ = new mpz_t[1];
+              mpz_init(*tmp_);
+              mpz_set(*tmp_, tmp2);
+              primes.push_back(tmp_);
+            }
+          }
+        }
+
+        // T += 2 * B
+        mpz_mul_ui(tmp3, B, 2);
+        mpz_add(T, T, tmp3);
+      }
+
+      // Clean up b and q vector.
+      for (size_t j = 0; j < b.size(); j++) {
+        mpz_clear(*b[j]);
+        delete[] b[j];
+      }
+
+      for (size_t j = 0; j < q.size(); j++) {
+        mpz_clear(*q[j]);
+        delete[] q[j];
+      }      
+
+      mpz_clears(P, tot, i, B, tmp, tmp2, T, tmp3, NULL);
     }
     
     vector<int> eratosthenesRangeI(int max) {
@@ -98,7 +210,7 @@ namespace Math {
 
       return res;      
     }
-    
+
     vector<int> eratosthenesRangeI(int min, int max) {
       // Don't use the segmented version in this case.
       if (min == 2 && max >= 4) {
