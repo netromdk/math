@@ -33,3 +33,9 @@ TARGET_LINK_LIBRARIES( SquareFreeI ${CORELIBS} )
 ADD_EXECUTABLE( SquareFree SquareFree.cpp ) 
 TARGET_LINK_LIBRARIES( SquareFree ${CORELIBS} )
 
+ADD_EXECUTABLE( CarmichaelI CarmichaelI.cpp ) 
+TARGET_LINK_LIBRARIES( CarmichaelI ${CORELIBS} )
+
+ADD_EXECUTABLE( Carmichael Carmichael.cpp ) 
+TARGET_LINK_LIBRARIES( Carmichael ${CORELIBS} )
+

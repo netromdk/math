@@ -22,6 +22,8 @@ SET( SOURCES
      PollardRho.cpp
      Smooth.h
      Smooth.cpp
+     Carmichael.h
+     Carmichael.cpp
 
      ### Sieving
      Eratosthenes.h
