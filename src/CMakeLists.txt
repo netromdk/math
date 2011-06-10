@@ -9,6 +9,8 @@ SET( SOURCES
      Mod.cpp
      GCD.h
      GCD.cpp
+     LCM.h
+     LCM.cpp
      Random.h
      Random.cpp
      EulerTotient.h
@@ -20,6 +22,8 @@ SET( SOURCES
      ### Factorization
      PollardRho.h
      PollardRho.cpp
+     PollardPm1.h
+     PollardPm1.cpp
      Smooth.h
      Smooth.cpp
      Carmichael.h

@@ -39,3 +39,6 @@ TARGET_LINK_LIBRARIES( CarmichaelI ${CORELIBS} )
 ADD_EXECUTABLE( Carmichael Carmichael.cpp ) 
 TARGET_LINK_LIBRARIES( Carmichael ${CORELIBS} )
 
+ADD_EXECUTABLE( PollardPm1I PollardPm1I.cpp ) 
+TARGET_LINK_LIBRARIES( PollardPm1I ${CORELIBS} )
+
