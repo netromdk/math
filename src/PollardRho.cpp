@@ -41,7 +41,7 @@ namespace Math {
       mpz_init(tmp);
       mpz_set(tmp, n);
       pollardRhoFactor0(tmp, facs);
-      mpz_clear(tmp);
+      mpz_clear(tmp);      
     }
 
     void pollardRho(const mpz_t n, mpz_t f) {
@@ -80,6 +80,7 @@ namespace Math {
       if (mpz_cmp(g, n) == 0) {
         mpz_clears(a, s, g, u, v, one, zero, tmp, NULL);
         pollardRho(n, f);
+        return;
       }
 
       // Found factor.
