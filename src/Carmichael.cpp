@@ -22,6 +22,7 @@ namespace Math {
             mpz_clear(*facs[j]);
             delete[] facs[j];
           }
+          
           mpz_clears(tmp, tmp2, NULL);          
           return false;
         }
@@ -41,7 +42,7 @@ namespace Math {
       pollardRhoFactorI(n, facs);
 
       for (size_t i = 0; i < facs.size(); i++) {
-        if ((n-1) % (facs[i]-1) != 0) return false;
+        if ((n - 1) % (facs[i] - 1) != 0) return false;
       }
       
       return true;
