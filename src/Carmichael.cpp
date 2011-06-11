@@ -18,11 +18,11 @@ namespace Math {
         mpz_sub_ui(tmp2, *facs[i], 1);
         mpz_mod(tmp2, tmp, tmp2);
         if (mpz_cmp_ui(tmp2, 0) != 0) {
-          mpz_clears(tmp, tmp2, NULL);
-          for (size_t j = 0; j < facs.size(); j++) {
+          for (size_t j = i; j < facs.size(); j++) {
             mpz_clear(*facs[j]);
             delete[] facs[j];
           }
+          mpz_clears(tmp, tmp2, NULL);          
           return false;
         }
 
