@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
 
   mpz_t C;
   mpz_init(C);
-  if (isSmooth(num, B, &C)) {
+  if (isSmooth(num, B, C)) {
     dump(num, "", false);
     dump(B, " is", false);
     cout << "-smooth." << endl;

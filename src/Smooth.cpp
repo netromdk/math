@@ -5,7 +5,7 @@
 
 namespace Math {
   namespace Fac {
-    bool isSmooth(const mpz_t n, const mpz_t B, mpz_t *C) {
+    bool isSmooth(const mpz_t n, const mpz_t B, mpz_t C) {
       vector<mpz_t*> facs;
       pollardRhoFactor(n, facs);
 
@@ -27,7 +27,7 @@ namespace Math {
         return true;
       }
 
-      if (C) mpz_set(*C, max);
+      mpz_set(C, max);
 
       mpz_clear(max);
       return false;      
