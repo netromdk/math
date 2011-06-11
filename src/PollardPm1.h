@@ -6,7 +6,7 @@ namespace Math {
     /**
      * Finds a nontrivial factor of composite number n until search
      * bound reaches maxB, if given, otherwise it loops. If found it
-     * saves it in f.
+     * saves it in f. (Inefficient algorithm)
      */
     bool pollardPm1I(int n, int *f, int maxB = 0);
   }

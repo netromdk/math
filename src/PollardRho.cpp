@@ -19,7 +19,17 @@ namespace Math {
         mpz_t *g = new mpz_t[1];
         mpz_init(*g);
         pollardRho(n, *g);
-        facs.push_back(g);
+
+        // Check if g is a prime, if not then factor that one instead
+        // of using this factor.
+        if (!isPropPrime(*g)) {
+          vector<mpz_t*> ext;
+          pollardRhoFactor(*g, ext);
+          facs.insert(facs.end(), ext.begin(), ext.end());
+        }
+        else {
+          facs.push_back(g);
+        }
 
         mpz_divexact(n, n, *g);
         pollardRhoFactor0(n, facs);
@@ -95,7 +105,14 @@ namespace Math {
       }
 
       int g = pollardRhoI(n);
-      facs.push_back(g);
+      if (!isPropPrime(g)) {
+        vector<int> ext;
+        pollardRhoFactorI(g, ext);
+        facs.insert(facs.end(), ext.begin(), ext.end());
+      }
+      else {
+        facs.push_back(g);
+      }
 
       pollardRhoFactorI(n / g, facs);
     }    
