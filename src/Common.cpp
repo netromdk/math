@@ -21,7 +21,7 @@ namespace Math {
                n, (newline ? "\n" : ""));
   }
 
-  bool mpz_less_than_p(const mpz_t *a, const mpz_t *b) {
+  bool mpzLessThanP(const mpz_t *a, const mpz_t *b) {
     return mpz_cmp(*a, *b) < 0;    
   }
 }

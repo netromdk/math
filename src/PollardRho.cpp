@@ -57,7 +57,7 @@ namespace Math {
       mpz_clear(tmp);
 
       // Sort the found factors.
-      std::sort(facs.begin(), facs.end(), mpz_less_than_p);
+      std::sort(facs.begin(), facs.end(), mpzLessThanP);
     }
 
     void pollardRho(const mpz_t n, mpz_t f) {
