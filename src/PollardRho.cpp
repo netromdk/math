@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "Mod.h"
 #include "GCD.h"
 #include "Random.h"
@@ -46,15 +48,26 @@ namespace Math {
       }
     }
 
+
     void pollardRhoFactor(const mpz_t n, vector<mpz_t*> &facs) {
       mpz_t tmp;
       mpz_init(tmp);
       mpz_set(tmp, n);
       pollardRhoFactor0(tmp, facs);
-      mpz_clear(tmp);      
+      mpz_clear(tmp);
+
+      // Sort the found factors.
+      std::sort(facs.begin(), facs.end(), mpz_less_than_p);
     }
 
     void pollardRho(const mpz_t n, mpz_t f) {
+      // Special case. When n = 4 then this factoring algorithm might
+      // loop and we know that a prime factor is 2.
+      if (mpz_cmp_ui(n, 4) == 0) {
+        mpz_set_ui(f, 2);
+        return;
+      }
+      
       // Return n as the factor if it's a probable-prime.      
       if (isPropPrime(n)) {
         mpz_set(f, n);
@@ -101,6 +114,7 @@ namespace Math {
     void pollardRhoFactorI(int n, vector<int> &facs) {
       if (isPropPrime(n)) {
         facs.push_back(n);
+        std::sort(facs.begin(), facs.end());
         return;
       }
 
@@ -118,6 +132,8 @@ namespace Math {
     }    
   
     int pollardRhoI(int n) {
+      if (n == 4) return 2;
+      
       if (isPropPrime(n)) return n;
       
       Random rnd;

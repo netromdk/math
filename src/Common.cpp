@@ -16,8 +16,12 @@ namespace Math {
     return propPrime;
   }
 
-  void dump(mpz_t n, std::string msg, bool newline) {
+  void dump(const mpz_t n, std::string msg, bool newline) {
     gmp_printf("%s%Zd%s", (msg.size() > 0 ? (msg + " ").c_str() : ""),
                n, (newline ? "\n" : ""));
+  }
+
+  bool mpz_less_than_p(const mpz_t *a, const mpz_t *b) {
+    return mpz_cmp(*a, *b) < 0;    
   }
 }

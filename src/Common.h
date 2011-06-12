@@ -7,7 +7,8 @@
 namespace Math {
   bool isPropPrime(const mpz_t n);  
   bool isPropPrime(int n);
-  void dump(mpz_t n, std::string msg = "", bool newline = true);
+  void dump(const mpz_t n, std::string msg = "", bool newline = true);
+  bool mpz_less_than_p(const mpz_t *a, const mpz_t *b);
 }
 
 #endif // MATH_COMMON_H
