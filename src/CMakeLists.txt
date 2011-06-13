@@ -3,6 +3,8 @@ SET( NAME math )
 SET( SOURCES
      ### Common
      PTypes.h
+     Constants.h
+     Constants.cpp
      Common.h 
      Common.cpp
      Mod.h
@@ -11,6 +13,8 @@ SET( SOURCES
      GCD.cpp
      LCM.h
      LCM.cpp
+     Log.h
+     Log.cpp
      Random.h
      Random.cpp
      EulerTotient.h
