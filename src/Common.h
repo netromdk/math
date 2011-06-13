@@ -8,6 +8,7 @@ namespace Math {
   bool isPropPrime(const mpz_t n);  
   bool isPropPrime(int n);
   void dump(const mpz_t n, std::string msg = "", bool newline = true);
+  void dump(const mpf_t n, std::string msg = "", bool newline = true);  
   bool mpzLessThanP(const mpz_t *a, const mpz_t *b);
 }
 

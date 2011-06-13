@@ -21,6 +21,11 @@ namespace Math {
                n, (newline ? "\n" : ""));
   }
 
+ void dump(const mpf_t n, std::string msg, bool newline) {
+    gmp_printf("%s%Ff%s", (msg.size() > 0 ? (msg + " ").c_str() : ""),
+               n, (newline ? "\n" : ""));
+  }  
+
   bool mpzLessThanP(const mpz_t *a, const mpz_t *b) {
     return mpz_cmp(*a, *b) < 0;    
   }
