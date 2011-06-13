@@ -45,6 +45,7 @@ namespace Math {
 
   void log10(const mpf_t n, mpf_t l, int prec) {
     // Approximate log10 to prec digits.
+    // Ref.: http://www.brics.dk/RS/04/17/BRICS-RS-04-17.pdf
     mpf_t tmp, tmp2;
     mpf_inits(tmp, tmp2, NULL);
     mpf_set(tmp, n);
