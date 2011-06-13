@@ -15,6 +15,8 @@ SET( SOURCES
      LCM.cpp
      Log.h
      Log.cpp
+     Exp.h
+     Exp.cpp
      Random.h
      Random.cpp
      EulerTotient.h
